@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Assembly Line</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Cars</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-inline" id="filterForm">
+                <div class="form-group mb-2">
+                    <label for="display">Display</label>
+                    <select class="form-control" id="display">
+                        <option value="table" selected>Table</option>
+                        <option value="json">JSON</option>
+                        <option value="xml">XML</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="brand">Brand</label>
+                    <select class="form-control" id="brand">
+                        <option value="" selected>Select a brand</option>
+                        <option th:each="brand : ${brands}" th:value="${brand.name}" th:text="${brand.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="sort">Sort</label>
+                    <select class="form-control" id="sort">
+                        <option value="priceLow" selected>Price lowest</option>
+                        <option value="priceHih">Price Highest</option>
+                        <option value="dateLow">Release Date Lowest</option>
+                        <option value="dateHig">Release Date Highest</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Get Cars</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <pre id="output"></pre>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="/app.js"></script>
+
+</body>
+</html>
