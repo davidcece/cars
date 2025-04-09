@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -16,17 +17,27 @@ public class CarAPI {
 
     private final List<Car> cars;
 
-
     @GetMapping(value = "json", produces = "application/json")
     public List<Car> getCarsJson() {
-        return cars;
+        return filterAndSortCars();
     }
 
     @GetMapping(value = "xml", produces = "application/xml")
     public Cars getCarsXml() {
-        Cars cars = new Cars();
-        cars.setCars(this.cars);
-        return cars;
+        final List<Car> filteredSortedCars = filterAndSortCars();
+        final Cars result = new Cars();
+        result.setCars(filteredSortedCars);
+        return result;
+    }
+
+    private List<Car> filterAndSortCars() {
+        
+        final Comparator<Car> priceGBPComparator = Comparator.comparingDouble(Car::getPriceGBP);
+
+        return cars.stream()
+                .filter(car -> car.getReleaseDate().getYear() > 2000)
+                .sorted(priceGBPComparator)
+                .toList();
     }
 
 }

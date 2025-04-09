@@ -13,16 +13,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
-public class CarController {
+public class HomeController {
 
     private final List<Brand> brands;
 
-
-
     @GetMapping
-    public String home(Model model) {
+    public String index(Model model) {
         model.addAttribute("brands", brands);
-        return "home";
+        return "index";
     }
 
 }

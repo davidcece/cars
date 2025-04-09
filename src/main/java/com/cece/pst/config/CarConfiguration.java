@@ -93,15 +93,16 @@ public class CarConfiguration {
     @Bean
     public List<Brand> brands() {
 
-        final List<Brand> brands = new ArrayList<>();
+        final List<Brand> result = new ArrayList<>();
         try {
             final ClassPathResource resource = new ClassPathResource(BRANDS_JSON);
             final List<String> lines = Files.readAllLines(resource.getFile().toPath(), StandardCharsets.UTF_8);
 
+            //Start with index 1 to skip the header line
             for (int i = 1; i < lines.size(); i++) {
                 final String line = lines.get(i).replaceAll("\"", ""); //Remove enclosing quotes
                 final String[] fields = line.split(",");
-                brands.add(
+                result.add(
                         Brand.builder()
                                 .name(fields[0])
                                 .releaseDate(LocalDate.parse(fields[1], pattern))
@@ -112,7 +113,7 @@ public class CarConfiguration {
             e.printStackTrace();
         }
 
-        return Collections.unmodifiableList(brands);
+        return Collections.unmodifiableList(result);
     }
 
 
