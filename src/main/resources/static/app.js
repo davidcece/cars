@@ -1,53 +1,46 @@
+const filterForm = $("#filterForm");
 
-$("#json").click(function (e) {
-    e.preventDefault();
-    fetch("/api/json")
-        .then(response => response.json())
-        .then(cars => $("#output").text(JSON.stringify(cars, null, 2)));
-})
-
-
-$("#xml").click(function (e) {
-    e.preventDefault();
-    fetch("/api/xml")
-        .then(response => response.text())
-        .then(cars => $("#output").text(prettifyXml(cars)));
-})
-
-
-$("#table").click(function (e) {
-    e.preventDefault();
-    fetch("/api/json")
-        .then(response => response.json())
-        .then(cars => $("#output").html(getTable(cars)));
-})
-
-$("#filterForm").submit(function (e) {
+filterForm.submit(async function (e) {
     e.preventDefault();
 
     const display = $("#display").val();
-    const data = $(this).serializeArray();
-    console.log(data);
+    const output = $("#output");
+    let response, cars;
 
     switch (display) {
         case "table":
-            fetch("/api/json")
-                .then(response => response.json())
-                .then(cars => $("#output").html(getTable(cars)));
+            response = await getCars("api/json");
+            cars = await response.json();
+            output.html(getTable(cars))
             break;
         case "json":
-            fetch("/api/json")
-                .then(response => response.json())
-                .then(cars => $("#output").text(JSON.stringify(cars, null, 2)));
+            response = await getCars("api/json");
+            cars = await response.json();
+            output.text(JSON.stringify(cars, null, 2));
             break;
         case "xml":
-            fetch("/api/xml")
-                .then(response => response.text())
-                .then(cars => $("#output").text(prettifyXml(cars)));
+            response = await getCars("api/xml");
+            cars = await response.text();
+            output.text(prettifyXml(cars));
             break;
     }
-
 })
+
+
+async function getCars(url){
+    const data = filterForm.serializeArray();
+    if (data.length > 0) {
+        url += "?";
+        data.forEach((item, index) => {
+            url += `${item.name}=${item.value}`;
+            if (index < data.length - 1) {
+                url += "&";
+            }
+        });
+    }
+
+    return await fetch(url);
+}
 
 
 function getTable(cars) {
@@ -78,8 +71,7 @@ function getTable(cars) {
                 <td>${car.priceEUR}</td>
                 <td>${car.priceGBP}</td>
                 <td>${car.priceJPY}</td>
-            </tr>
-        `
+            </tr>`
     });
 
     table += ` 
@@ -88,9 +80,6 @@ function getTable(cars) {
 
     return table;
 }
-
-
-
 
 
 function prettifyXml(sourceXml)
@@ -115,5 +104,3 @@ function prettifyXml(sourceXml)
     const resultDoc = xsltProcessor.transformToDocument(xmlDoc);
     return new XMLSerializer().serializeToString(resultDoc);
 }
-
-

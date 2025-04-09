@@ -18,7 +18,7 @@
         <div class="col-md-12">
             <form class="form-inline" id="filterForm">
                 <div class="form-group mb-2">
-                    <label for="display">Display</label>
+                    <label for="display">Display: &nbsp;</label>
                     <select class="form-control" id="display">
                         <option value="table" selected>Table</option>
                         <option value="json">JSON</option>
@@ -26,19 +26,20 @@
                     </select>
                 </div>
                 <div class="form-group mb-2">
-                    <label for="brand">Brand</label>
-                    <select class="form-control" id="brand">
+                    <label for="brand">&nbsp; Brand: &nbsp;</label>
+                    <select class="form-control" id="brand" name="brand">
                         <option value="" selected>Select a brand</option>
                         <option th:each="brand : ${brands}" th:value="${brand.name}" th:text="${brand.name}"></option>
                     </select>
                 </div>
                 <div class="form-group mb-2">
-                    <label for="sort">Sort</label>
-                    <select class="form-control" id="sort">
-                        <option value="priceLow" selected>Price lowest</option>
-                        <option value="priceHih">Price Highest</option>
-                        <option value="dateLow">Release Date Lowest</option>
-                        <option value="dateHig">Release Date Highest</option>
+                    <label for="sort"> &nbsp; Sort By: &nbsp;</label>
+                    <select class="form-control" id="sort" name="sort">
+                        <option value="" selected>Select a sort</option>
+                        <option value="priceLow">Price Lowest</option>
+                        <option value="priceHigh">Price Highest</option>
+                        <option value="dateLatest">Release Date Latest</option>
+                        <option value="dateOldest">Release Date Oldest</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Get Cars</button>
