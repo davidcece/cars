@@ -1,3 +1,5 @@
+$(".date").datepick({dateFormat: 'yyyy,dd,mm'});
+
 const filterForm = $("#filterForm");
 
 filterForm.submit(async function (e) {

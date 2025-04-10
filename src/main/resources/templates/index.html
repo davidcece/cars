@@ -2,8 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Assembly Line</title>
+    <title>Cars</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/jquery.datepick.css">
 </head>
 <body>
 
@@ -33,13 +34,47 @@
                     </select>
                 </div>
                 <div class="form-group mb-2">
+                    <label for="bodyType">&nbsp; Body Type: &nbsp;</label>
+                    <select class="form-control" id="bodyType" name="bodyType">
+                        <option value="" selected>Select Body Type</option>
+                        <option value="Sedan">Sedan</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Truck">Truck</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="currency">&nbsp; Currency: &nbsp;</label>
+                    <select class="form-control" id="currency" name="currency">
+                        <option value="USD" selected>USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="JPY">JPY</option>
+                    </select>
+                </div>
+                <div class="form-group mb-2">
+                    <label for="priceMin">&nbsp; Price Min: &nbsp;</label>
+                    <input type="number" class="form-control" id="priceMin" name="priceMin" />
+                </div>
+                <div class="form-group mb-2">
+                    <label for="priceMax">&nbsp; Price Max: &nbsp;</label>
+                    <input type="number" class="form-control" id="priceMax" name="priceMax" />
+                </div>
+                <div class="form-group mb-2">
+                    <label for="dateMin">&nbsp; Date Min: &nbsp;</label>
+                    <input type="text" class="form-control date" id="dateMin" name="dateMin" readonly />
+                </div>
+                <div class="form-group mb-2">
+                    <label for="dateMax">&nbsp; Date Max: &nbsp;</label>
+                    <input type="text" class="form-control date" id="dateMax" name="dateMax" readonly />
+                </div>
+                <div class="form-group mb-2">
                     <label for="sort"> &nbsp; Sort By: &nbsp;</label>
                     <select class="form-control" id="sort" name="sort">
-                        <option value="" selected>Select a sort</option>
+                        <option value="" selected>Select Sort Direction</option>
                         <option value="priceLow">Price Lowest</option>
                         <option value="priceHigh">Price Highest</option>
-                        <option value="dateLatest">Release Date Latest</option>
-                        <option value="dateOldest">Release Date Oldest</option>
+                        <option value="dateLatest">Date Latest</option>
+                        <option value="dateOldest">Date Oldest</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary mb-2">Get Cars</button>
@@ -53,7 +88,9 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="/jquery.plugin.js"></script>
+<script type="text/javascript" src="/jquery.datepick.js"></script>
 <script src="/app.js"></script>
 
 </body>
